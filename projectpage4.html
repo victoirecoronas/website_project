@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <title>Assignment 4: Vegetation Indexes - Greater Rio de Janeiro</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#f4f7f5;
+      --surface:#ffffff;
+      --text:#1f2937;
+      --muted:#6b7280;
+      --accent:#2e7d32; /* Tailored to fit a vegetation/remote sensing palette */
+      --accent-light:#e8f5e9;
+      --border:#e5e7eb;
+      --shadow:0 10px 28px rgba(0,0,0,0.04);
+      --radius:20px;
+      --max-width:1150px;
+    }
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
+
+    html{
+      scroll-behavior:smooth;
+    }
+
+    body{
+      font-family:'Inter',sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      line-height:1.8;
+    }
+
+    img{
+      max-width:100%;
+      display:block;
+      border-radius:12px;
+      margin: 1.5rem auto;
+      border: 1px solid var(--border);
+    }
+
+    a{
+      text-decoration:none;
+      color:var(--accent);
+    }
+
+    .container{
+      width:min(92%, var(--max-width));
+      margin:auto;
+    }
+
+    /* =========================
+       HEADER
+    ========================== */
+    header{
+      position:sticky;
+      top:0;
+      z-index:1000;
+      background:rgba(255,255,255,0.92);
+      backdrop-filter:blur(10px);
+      border-bottom:1px solid var(--border);
+    }
+
+    nav{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:1rem 0;
+    }
+
+    .logo{
+      font-weight:700;
+      font-size:1.05rem;
+    }
+
+    .back-link{
+      color:var(--muted);
+      transition:0.2s ease;
+    }
+
+    .back-link:hover{
+      color:var(--accent);
+    }
+
+    /* =========================
+       HERO
+    ========================== */
+    .hero{
+      padding:6rem 0 4rem;
+    }
+
+    .hero h1{
+      font-family:'Merriweather',serif;
+      font-size:clamp(2.4rem,6vw,4.5rem);
+      line-height:1.15;
+      margin-bottom:1.3rem;
+    }
+
+    .hero p{
+      color:var(--muted);
+      max-width:800px;
+      font-size:1.1rem;
+    }
+
+    .hero-meta{
+      margin-top:2rem;
+      display:flex;
+      flex-wrap:wrap;
+      gap:1rem;
+    }
+
+    .meta-item{
+      background:var(--accent-light);
+      color:var(--accent);
+      padding:0.6rem 1rem;
+      border-radius:999px;
+      font-size:0.92rem;
+      font-weight:500;
+    }
+
+    /* =========================
+       CONTENT LAYOUT
+    ========================== */
+    section{
+      padding-bottom:4rem;
+    }
+
+    .content-grid{
+      display:grid;
+      grid-template-columns:2fr 1fr;
+      gap:3rem;
+      align-items:start;
+    }
+
+    .content-card{
+      background:var(--surface);
+      border-radius:var(--radius);
+      padding:2.2rem;
+      border:1px solid var(--border);
+      box-shadow:var(--shadow);
+      margin-bottom:2.5rem;
+    }
+
+    .content-card h2{
+      font-family:'Merriweather',serif;
+      margin-bottom:1.2rem;
+      font-size:1.6rem;
+      color: var(--text);
+    }
+
+    .content-card p{
+      color:var(--muted);
+      margin-bottom:1.2rem;
+    }
+
+    /* =========================
+       BUBBLE CONTAINERS (Q&A & MAPS)
+    ========================== */
+    .bubble-container {
+      display: flex;
+      flex-direction: column;
+      gap:1.5rem;
+      margin-top: 1.5rem;
+    }
+
+    .bubble-qa {
+      background: #f9fafb;
+      border-left: 4px solid var(--accent);
+      padding: 1.5rem;
+      border-radius: 12px;
+    }
+
+    .bubble-qa strong {
+      display: block;
+      color: var(--text);
+      font-size: 1.05rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .bubble-qa p {
+      margin-bottom: 0;
+      font-size: 0.98rem;
+    }
+
+    /* Specialized Bubble for Maps */
+    .bubble-map {
+      background: #f9fafb;
+      border-top: 4px solid var(--accent);
+      padding: 1.8rem;
+      border-radius: 16px;
+      margin-top: 2rem;
+      box-shadow: inset 0 0 8px rgba(0,0,0,0.01);
+    }
+
+    .bubble-map h3 {
+      font-family: 'Merriweather', serif;
+      font-size: 1.25rem;
+      color: var(--text);
+      margin-bottom: 0.5rem;
+    }
+
+    .bubble-map-meta {
+      font-size: 0.85rem;
+      color: var(--accent);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .bubble-map p {
+      font-size: 0.98rem;
+      color: var(--muted);
+      margin-bottom: 0;
+    }
+
+    /* =========================
+       SIDEBAR
+    ========================== */
+    .sidebar-card{
+      background:var(--surface);
+      border-radius:var(--radius);
+      padding:2rem;
+      border:1px solid var(--border);
+      box-shadow:var(--shadow);
+      margin-bottom:2rem;
+    }
+
+    .sidebar-card h3{
+      margin-bottom:1rem;
+      font-size:1.1rem;
+    }
+
+    .sidebar-card p{
+      color:var(--muted);
+      margin-bottom:0.7rem;
+      font-size:0.95rem;
+    }
+
+    /* =========================
+       BUTTON
+    ========================== */
+    .button{
+      display:inline-block;
+      margin-top:1rem;
+      padding:0.95rem 1.4rem;
+      border-radius:999px;
+      background:var(--accent);
+      color:white;
+      font-weight:600;
+      transition:0.2s ease;
+    }
+
+    .button:hover{
+      opacity:0.92;
+    }
+
+    /* =========================
+       FOOTER
+    ========================== */
+    footer{
+      padding:4rem 0;
+      text-align:center;
+      color:var(--muted);
+      font-size:0.95rem;
+    }
+
+    /* =========================
+       MOBILE RESPONSIVENESS
+    ========================== */
+    @media(max-width:900px){
+      .content-grid{
+        grid-template-columns:1fr;
+      }
+      nav{
+        flex-direction:column;
+        gap:1rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <div class="container">
+      <nav>
+        <div class="logo">
+          GIS Student Portfolio
+        </div>
+        <a href="Student_website_template.html" class="back-link">
+          ← Back to Portfolio
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container">
+      <h1>
+        Vegetation Indexes & Environmental Change
+      </h1>
+      <p>
+       I chose to map the vegetation indexes of Greater Rio de Janiero because the sourrounding areas of the city have been ubranized over the past decade and it is an area that I have studied in the past.
+      </p>
+
+      <div class="hero-meta">
+        <div class="meta-item">Remote Sensing</div>
+        <div class="meta-item">NDVI Analysis</div>
+        <div class="meta-item">True color maps</div>
+        <div class="meta-item">Environmental change overtime</div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <div class="content-grid">
+
+        <div>
+
+          <div class="content-card">
+            <h2>Core Concepts</h2>
+            <p>
+              This assignment aims to create maps of Greater Rio de Janiero showing the Normalized Differece Vegetation Index (NDVI) in 2018 and in 2025. This allows us to visualize how forrestation and urbanization have evolved overtime.Before presenting the findings of these maps it is important to understand some key concepts of how we obtain this data.
+            </p>
+            
+            <div class="bubble-container">
+              <div class="bubble-qa">
+                <strong>Satellite images of a city are created using a technique called remote sensing; using satellites to measure and monitor the Earth's surface from space.</strong>
+                <br>
+                <p style="text-indent: 2rem; margin-top: 1rem;">
+                  The satellites take many pictures and stitch them together into a full accurate map, this is called an orthomosaic map. We are also able to make our own composite orthomosaic map from open data! Our open data source is from Google Earth Engine (GEE) which collects satellite images. We selected the images from 01/07/2018 to 31/12/2018 as well as 7 years later from 01/07/2025 to 31/12/2025. Using GEE scripts and Sentinel-2-data from the Greater Rio de Janeiro region we achieve an ortho mosaic map. 
+                </p>
+                <p style="text-indent: 2rem; margin-top: 1rem;">
+                  One practical challenge with satellite imagery is clouds which can block the view of the actual surface area. GEE takes images every 5 days and averages these images for the selected time period, resulting in a cloudless composite orthomosaic.  
+                </p>
+                <p style="text-indent: 2rem; margin-top: 1rem;">
+                  The selected time of year is important when analysing this data because vegetation changes with seasons, and the GEE measures vegetation. This is why we compare the images over the same time period 7 years apart. 
+                </p>
+                <p style="text-indent: 2rem; margin-top: 1rem;">
+                  The images used here come from Sentinel-2, a satellite operated by the European Space Agency (ESA). This satellite orbits the Earth every five days and captures images in 13 different bands of light, including wavelengths that are invisible to the human eye. This makes it a multispectral satellite, which is extremely valuable to making these maps. Indeed, different surfaces on Earth reflect light in very characteristic ways. By capturing the extra wavelengths, satellites can reveal things that are invisible in a normal photo. 
+                </p>
+                <p style="text-indent: 2rem; margin-top: 1rem;">
+                  Thanks to these clean images, we can ask questions like how healthy is the vegetation. We do this thanks to vegetation indices which is a mathematical formula producing a single value representing some property of plant life. The most widely used vegetation index is the NDVI — the Normalized Difference Vegetation Index. It works by comparing how much red light versus near-infrared light is being reflected resulting in a number between −1 and +1. 
+                </p>
+                <p style="text-indent: 2rem; margin-top: 1rem;">
+                  Indeed, the amount of vegetation in any place impacts the amount of red light versus near-infrared light being reflected. Dense, healthy vegetation scores close to +1, unhealthy vegetation scores near 0 and urban environments or water scores near -1. These vegetation indexes measured thanks to multi spectral satellite imagery are relevant to sustainable development because they allow us to map phenomenons like deforestation and locate healthy vegetation.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="content-card">
+            <h2>Maps & Explenations</h2>
+            <p>Here are the five maps that I made to compare the NDVI of Rio de Janeiro between 2018 and 2025.</p>
+
+            <div class="bubble-map">
+              <div class="bubble-map-meta">Map 1 • Rio de Janeiro in 2018 </div>
+              
+              <img src=" True color 2018.png" alt="Greater Rio de Janeiro True Color Composite 2018 Map">
+              
+              <p>
+                <strong>Observations:</strong>  In this map, you can see the city as your eyes would see it from space in 2018. The legend signifies that the map is in its “True color” form, meaning that the colors of the map are the actual colors of the area. 
+
+              </p>
+            </div>
+
+            <div class="bubble-map">
+              <div class="bubble-map-meta">Map 2 • Rio de Janeiro in 2025 </div>
+              
+              <img src="True color 2025.png" alt="Greater Rio de Janeiro True Color Composite 2025 Map ">
+              
+              <p>
+                <strong>Observations:</strong> In this map, you can see the city as your eyes would see it from space in 2025. The legend signifyies that the map is in its “True color” form.
+              </p>
+            </div>
+
+            <div class="bubble-map">
+              <div class="bubble-map-meta">Map 3 • NDVI 2018 </div>
+              
+              <img src="NDVI_2018.png" alt="Greater Rio de Janeiro NDVI composite 2018 Map">
+              
+              <p>
+                <strong>Observations:</strong> This is the map visualizing the NDVI of the Greater Rio de Janeiro region in 2018. The color scale runs from dark blue (−1, water/non-vegetation) through yellow-green to bright green (+1, dense healthy vegetation). The bright greens in the mountains are the forest, with a high NDVI. The urban areas and water bodies show up as blue/dark because they have a lower NDVI. 
+
+              </p>
+            </div>
+
+            <div class="bubble-map">
+              <div class="bubble-map-meta">Map 4 • NDVI 2025</div>
+              
+              <img src=" NDVI_2025.png" alt="Greater Rio de Janeiro NDVI composite 2025 Map ">
+              
+              <p>
+                <strong>Observations:</strong>This is the map visualizing the NDVI of the Greater Rio de Janeiro region in 2025. The differences between the NDVI maps of 2018 and 2025 are barely perceivable. This next map will allow us to visualize any small differences. 
+              </p>
+            </div>
+
+            <div class="bubble-map">
+              <div class="bubble-map-meta">Map 5 • Comparison</div>
+              
+              <img src="ChANGE.png" alt="NDVI Change between 2018 and 2025 Map">
+              
+              <p>
+                <strong>Observations:</strong> This map shows the difference between the two previous NDVI images. It was made using raster subtraction math, subtracting the NDVI of 2018 with the NDVI of 2025. We notice from the legend that the map is almost uniformly at 0. This signifies that the vegetation index did not change much over this period of 7 years. A few scattered purple/blue patches indicate areas where NDVI decreased (possible deforestation, urban expansion, or degradation). The yellow/green spots show areas where vegetation increased (regrowth or seasonal differences). Overall, the vegetation structure of Greater Rio was relatively stable over this period. 
+
+              </p>
+            </div>
+
+          </div>
+        </div>
+
+        <div>
+          <div class="sidebar-card">
+            <h3>Project Details</h3>
+            <p><strong>Student:</strong> Victoire Coronas</p>
+            <p><strong>Course:</strong> Geographical Informations Systems </p>
+            <p><strong>Date:</strong> June 2026</p>
+            <p><strong>Study Area:</strong> Greater Rio de Janeiro (Brazil) </p>
+            <p><strong>Data Source:</strong> Sentinel-2 satellite </p>
+          </div>
+
+          <div class="sidebar-card">
+            <h3>Software & Bands</h3>
+            <p>• QGIS </p>
+            <p>• Band 4 (Visible Red) </p>
+            <p>• Band 3 (Visible Green)</p>
+            <p>• Band 2 (Visible Blue) </p>
+            <p>• Raster Calculator </p>
+          </div>
+
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      © 2026 GIS Student Portfolio | Victoire Coronas
+    </div>
+  </footer>
+
+</body>
+</html>

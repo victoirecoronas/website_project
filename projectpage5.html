@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <title>Land Use Classification - Utrecht</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#f5f7fa;
+      --surface:#ffffff;
+      --text:#1f2937;
+      --muted:#6b7280;
+      --accent:#0e623a; 
+      --accent-light:#e6f4ea;
+      --border:#e5e7eb;
+      --shadow:0 10px 28px rgba(0,0,0,0.06);
+      --radius:20px;
+      --max-width:900px;
+    }
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
+
+    html{
+      scroll-behavior:smooth;
+    }
+
+    body{
+      font-family:'Inter',sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      line-height:1.8;
+    }
+
+    img{
+      max-width:100%;
+      display:block;
+      border-radius:12px;
+      margin: 1.5rem auto;
+    }
+
+    .container{
+      width:min(92%, var(--max-width));
+      margin:auto;
+      padding: 2rem 0;
+    }
+
+    /* =========================
+       HEADER & HERO INFO
+    ========================== */
+    header{
+      position:sticky;
+      top:0;
+      z-index:1000;
+      background:rgba(255,255,255,0.92);
+      backdrop-filter:blur(10px);
+      border-bottom:1px solid var(--border);
+    }
+
+    nav{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:1rem 0;
+    }
+
+    .logo{
+      font-weight:700;
+      font-size:1.05rem;
+    }
+
+    .back-link{
+      text-decoration:none;
+      color:var(--muted);
+      transition:0.2s ease;
+    }
+
+    .back-link:hover{
+      color:var(--accent);
+    }
+
+    .hero-intro {
+      margin-top: 1rem;
+      margin-bottom: 3rem;
+    }
+
+    .hero-intro h1 {
+      font-family: 'Merriweather', serif;
+      font-size: 2.5rem;
+      color: var(--text);
+      margin-bottom: 0.75rem;
+      line-height: 1.2;
+    }
+
+    .hero-intro p {
+      font-size: 1.15rem;
+      color: var(--muted);
+      margin-bottom: 1.5rem;
+    }
+
+    /* Meta Keyword Bubbles */
+    .meta-bubbles-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .meta-bubble {
+      background: var(--accent-light);
+      color: var(--accent);
+      font-weight: 500;
+      font-size: 0.85rem;
+      padding: 0.4rem 1rem;
+      border-radius: 50px;
+    }
+
+    /* =========================
+       BUBBLE CARD SYSTEM
+    ========================== */
+    .bubble-card{
+      background:var(--surface);
+      border-radius:var(--radius);
+      padding:2.5rem;
+      border:1px solid var(--border);
+      box-shadow:var(--shadow);
+      margin-bottom:2.5rem;
+    }
+
+    .bubble-card.small-bubble {
+      padding: 1.5rem 2.5rem;
+    }
+
+    .bubble-card h2{
+      font-family:'Merriweather',serif;
+      margin-bottom:1.2rem;
+      font-size:1.6rem;
+      color: var(--text);
+    }
+
+    .bubble-card h3{
+      font-family:'Inter',sans-serif;
+      margin-top:1.5rem;
+      margin-bottom:0.5rem;
+      font-size:1.15rem;
+      color: var(--text);
+    }
+
+    .bubble-card p{
+      color:var(--text);
+      margin-bottom:1.2rem;
+    }
+
+    .bubble-card p:last-child {
+      margin-bottom: 0;
+    }
+
+    .image-placeholder-frame {
+      border: 2px dashed #cbd5e1;
+      background: #f8fafc;
+      border-radius: 12px;
+      padding: 3rem 1rem;
+      text-align: center;
+      color: #64748b;
+      font-weight: 500;
+      margin: 1.5rem 0;
+    }
+
+    .image-placeholder-frame.large-frame {
+      padding: 5rem 1rem;
+    }
+
+    footer{
+      padding:4rem 0;
+      text-align:center;
+      color:var(--muted);
+      font-size:0.95rem;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <div class="container" style="padding:0;">
+      <nav>
+        <div class="logo">
+          GIS Student Portfolio
+        </div>
+        <a href="Student_website_template.html" class="back-link">
+          ← Back to Portfolio
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="container">
+
+    <div class="hero-intro">
+      <h1>Land Cover Classification</h1>
+      <p>Exploring supervised and unsupervised classification algorithms over the Utrecht region using Sentinel imagery.</p>
+      
+      <div class="meta-bubbles-container">
+        <span class="meta-bubble">QGIS</span>
+        <span class="meta-bubble">Supervised Classification</span>
+        <span class="meta-bubble">Unsupervised Classification</span>
+        <span class="meta-bubble">NDVI Analysis</span>
+      </div>
+    </div>
+
+
+    <div class="bubble-card">
+      <h2>False Color Composite Image of Utrecht</h2>
+      <img src="Utrecht_false color composite.png" alt="Infrared False Color Composite of Utrecht">
+	   <img src="legend utrecht map.png" alt="Legend">
+      <p style="text-align:center; color:var(--muted); font-size:0.9rem; margin-bottom:0;">
+        Infrared False Color Base Composite (B8, B4, B3). This is the satellite image of the city of Utrecht that I will be using to do a land-cover analysis. 
+      </p>
+    </div>
+
+
+    <div class="bubble-card">
+      <h2>Background & Context</h2>
+      <p>
+        Land cover classification is the process of turning raw satellite data into colorful, meaningful maps. This is extremely valuable as it allows scientists to map things like the shrinking of the amazon forest, the growth of cities or the health of crops. By using automated computer algorithms, we can analyze geographic areas with extraordinary speed, consistency and keep tracking change continuously.
+      </p>
+      <p>
+        There are two approaches to this: supervised and unsupervised classification.
+      </p>
+      <p>
+        In supervised classification, you 'teach' the computer by manually entering data. For example, you draw over a body of water and tell the computer 'This is water.' and you do the same for forests, urban areas and farmland. The computer uses the samples, called training samples, and applies this knowledge to the rest of the map.
+      </p>
+      <p>
+        Unsupervised classification is an automatic approach to this, so the computer learns on its own. You don't give the computer any examples or labels. Instead, you simply hand it the imagery and it groups pixels into distinct categories based on their similarities using mathematical algorithms. It then presents you with a map of anonymous groups and the human analyst looks at the results and figures out what those groups actually represent in the real world.
+      </p>
+    </div>
+
+
+    <div class="bubble-card small-bubble">
+      <h2>Pixel Spatial Resolution</h2>
+        <img src="size of a pixel.png" alt="size of a pixel">
+      <p>
+        Here, I downloaded the satellite image of Utrecht on arcGIS and measured the length of the pixels of the image. The approximate length and width of each pixel is 94.1 feet (28 meters), this is the spatial resolution of this sentinal composite.
+      </p>
+    </div>
+
+
+    <div class="bubble-card">
+      <h2>Spectral Profiles</h2>
+       <img src="spectral profiles.png" alt="spectral profiles">
+      <p>
+        This graph shows the spectral profile of different land covers in Utrecht; agriculture, recreational areas (in this case parks), urban areas, and water. A spectral profile plots how much each land cover reflects across different wavelengths. We notice that water reflects a lot less compared to agriculture, which is logical seeing as vegetation reflects light a lot more than water or urban environments.
+      </p>
+    </div>
+
+
+    <div class="bubble-card">
+      <h2>Unsupervised Classification: Pixel Based</h2>
+       <img src="unsupervised classification_ point based.png" alt="unsupervised classification">
+	    <img src="legend unsupervsed point based.png" alt="legend">
+      <p>
+        This is the unsupervised land-use classification of Utrecht. We notice that the computer separated pixels into different groups. From these groups, I deduced what different colors correspond to in the city of Utrecht and labelled the legend. This version uses pixel-based classification, meaning that it treats every pixel as an isolated island and looks at their spectral profile (to what extent they reflect) and groups the pixels with others that have similar properties.
+      </p>
+    </div>
+
+
+    <div class="bubble-card">
+      <h2>Unsupervised Classification: Object Based</h2>
+       <img src="unsupervised object based.png" alt="unsupervised classification2">
+	   <img src="legend unsupervised object based.png" alt="legend2">
+      <p>
+        This map also uses the unsupervised classification method but this time it is object based. This means the unsupervised algorithm segments pixels into groups based on spectral similarity and shape. This makes the map look more clean because there aren't single random pixels existing on their own. From the groups the algorithm created, I deduced which colors correspond to types of land in the city of Utrecht. We can notice that this map seems slightly less accurate than the point-based one, for example the bodies of water were not easily identifiable.
+      </p>
+    </div>
+
+
+    <div class="bubble-card">
+      <h2>Supervised Classification</h2>
+         <img src="supervised_point based.png" alt="supervised">
+		  <img src="legend_supervised.png" alt="legend2">
+      <p>
+        This map shows the supervised classification of land-uses in Utrecht. This means that the algorithm learned from the examples of land uses that I manually entered and applies these training examples to the rest of the map. While this method can be very efficient, I only entered approximately 5 training examples which is not a lot for the algorithm to learn and makes the result less precise. However, it still produced a good result, as we can see that the light pink is developed environments (urban), the yellow is planted or cultivated areas (agriculture), a lot of the bodies of water are accurate, even if they do not show canals, and the light blue is the wetlands, which do show canals as well as some forestry areas.
+      </p>
+    </div>
+
+
+    <div class="bubble-card">
+      <h2>Normalized Difference Vegetation Index (NDVI)</h2>
+        <img src="NDVI.png" alt="supervised">
+		 <img src="NDVI legend.png" alt="legend2">
+      <p>
+        This map shows the vegetation index of Utrecht (see Vegetation indexes page for more information about NDVIs). We can notice that the blue areas correspond to water, which does not reflect infrareds and therefore has a low index below 0. The orange areas have a higher index, indicating that they could correspond to agriculture or forests. Finally, the green areas seem to have an index of 0, indicating that they are urban environments.
+      </p>
+      <p>
+        I chose this color scheme because it shows the variations of the vegetation index very nicely, which is important for this map seeing as the variations are not extremely significant. Furthermore, it uses a large array of colors which is good because the amount of reflection is neutral. This makes it readable for a target audience of nonprofessional individuals that understand the concept of NDVIs.
+      </p>
+    </div>
+
+
+    <div class="bubble-card">
+      <h2>Methodological Strengths & Weaknesses</h2>
+      
+      <h3>Pixel-based unsupervised classification:</h3>
+      <p><strong>Strengths:</strong> Good detail. Each pixel evaluated individually and no training required for the algorithm.</p>
+      <p><strong>Weaknesses:</strong> Isolated pixels get misclassified making a "salt and pepper" effect.</p>
+      <p><strong>Unique insight:</strong> Shows more bodies of water than the other maps</p>
+
+      <h3>Object-based unsupervised classification:</h3>
+      <p><strong>Strengths:</strong> Pixels are grouped so no "salt and pepper" effect.</p>
+      <p><strong>Weaknesses:</strong> The bodies of water are inaccurate and difficult to identify</p>
+      <p><strong>Unique Insight:</strong> Groups the land use categories into neighborhoods</p>
+
+      <h3>Supervised Classification:</h3>
+      <p><strong>Strengths:</strong> produces the labels directly so we don't have to identify the land covers afterwards.</p>
+      <p><strong>Weaknesses:</strong> Only 4 training samples were used which makes it lack precision.</p>
+      <p><strong>Unique Insight:</strong> Even with minimal training data, the categories like urban and agricultural land were reasonably captured, illustrating the method's potential when scaled up with more samples.</p>
+
+      <h3>NDVI:</h3>
+      <p><strong>Strengths:</strong> Objectively and continuously maps the vegetation health using infrared reflectance.</p>
+      <p><strong>Weaknesses:</strong> Doesn't distinguish land cover types but instead the vegetation indexes. For example, bare/ unhealthy soil could be confused with urban environments.</p>
+      <p><strong>Unique insight:</strong> Confirmed that Utrecht's surroundings are vegetated (orange values), while the urban core clusters around zero. This validates the other classification maps.</p>
+    </div>
+
+  </div>
+
+  <footer>
+    <div class="container" style="padding:0;">
+      © 2026 GIS Student Portfolio | Victoire Coronas
+    </div>
+  </footer>
+
+</body>
+</html>

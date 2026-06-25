@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <title>Vector Data and Analysis: School Accessibility & VGI in Utrecht</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#f5f7fa;
+      --surface:#ffffff;
+      --text:#1f2937;
+      --muted:#6b7280;
+      --accent:#2563eb;
+      --accent-light:#dbeafe;
+      --border:#e5e7eb;
+      --shadow:0 10px 28px rgba(0,0,0,0.06);
+      --radius:20px;
+      --max-width:900px; /* Aligned into a single centered column */
+    }
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
+
+    html{
+      scroll-behavior:smooth;
+    }
+
+    body{
+      font-family:'Inter',sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      line-height:1.8;
+    }
+
+    img{
+      max-width:100%;
+      display:block;
+      border-radius:12px;
+      margin:1.5rem auto;
+    }
+
+    .container{
+      width:min(92%, var(--max-width));
+      margin:auto;
+      padding: 2rem 0;
+    }
+
+    /* =========================
+       HEADER & HERO INFO
+    ========================== */
+    header{
+      position:sticky;
+      top:0;
+      z-index:1000;
+      background:rgba(255,255,255,0.92);
+      backdrop-filter:blur(10px);
+      border-bottom:1px solid var(--border);
+    }
+
+    nav{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:1rem 0;
+    }
+
+    .logo{
+      font-weight:700;
+      font-size:1.05rem;
+    }
+
+    .back-link{
+      text-decoration:none;
+      color:var(--muted);
+      transition:0.2s ease;
+    }
+
+    .back-link:hover{
+      color:var(--accent);
+    }
+
+    .hero-intro {
+      margin-top: 1rem;
+      margin-bottom: 3rem;
+    }
+
+    .hero-intro h1 {
+      font-family: 'Merriweather', serif;
+      font-size: 2.5rem;
+      color: var(--text);
+      margin-bottom: 0.75rem;
+      line-height: 1.2;
+    }
+
+    .hero-intro p {
+      font-size: 1.15rem;
+      color: var(--muted);
+      margin-bottom: 1.5rem;
+    }
+
+    /* Meta Keyword Bubbles */
+    .meta-bubbles-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .meta-bubble {
+      background: var(--accent-light);
+      color: var(--accent);
+      font-weight: 500;
+      font-size: 0.85rem;
+      padding: 0.4rem 1rem;
+      border-radius: 50px;
+    }
+
+    /* =========================
+       BUBBLE CARD SYSTEM
+    ========================== */
+    .bubble-card{
+      background:var(--surface);
+      border-radius:var(--radius);
+      padding:2.5rem;
+      border:1px solid var(--border);
+      box-shadow:var(--shadow);
+      margin-bottom:2.5rem;
+    }
+
+    .inner-methods-box {
+      background: #f8fafc;
+      border-left: 4px solid var(--accent);
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin: 1.5rem 0;
+    }
+
+    .inner-methods-box h3 {
+      font-size: 1.1rem;
+      margin-top: 0;
+      margin-bottom: 0.5rem;
+      color: var(--text);
+    }
+
+    .bubble-card h2{
+      font-family:'Merriweather',serif;
+      margin-bottom:1.2rem;
+      font-size:1.6rem;
+      color: var(--text);
+    }
+
+    .bubble-card h3{
+      font-family:'Inter',sans-serif;
+      margin-top:1.5rem;
+      margin-bottom:0.5rem;
+      font-size:1.15rem;
+      color: var(--text);
+    }
+
+    .bubble-card p{
+      color:var(--text);
+      margin-bottom:1.2rem;
+    }
+
+    .bubble-card p:last-child {
+      margin-bottom: 0;
+    }
+
+    .bubble-card ul{
+      padding-left:1.2rem;
+      margin-bottom:1.2rem;
+    }
+
+    .bubble-card li{
+      margin-bottom:0.4rem;
+    }
+
+    .image-placeholder-frame {
+      border: 2px dashed #cbd5e1;
+      background: #f8fafc;
+      border-radius: 12px;
+      padding: 1.5rem;
+      text-align: center;
+      color: #64748b;
+      font-weight: 500;
+      margin: 1.5rem 0;
+    }
+
+    .map-subsection {
+      border-top: 1px solid var(--border);
+      padding-top: 2rem;
+      margin-top: 2.5rem;
+    }
+
+    .map-subsection:first-of-type {
+      border-top: none;
+      padding-top: 0;
+      margin-top: 0;
+    }
+
+    footer{
+      padding:4rem 0;
+      text-align:center;
+      color:var(--muted);
+      font-size:0.95rem;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <div class="container" style="padding:0;">
+      <nav>
+        <div class="logo">
+          GIS Student Portfolio
+        </div>
+        <a href="Student_website_template.html" class="back-link">
+          ← Back to Portfolio
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="container">
+
+    <div class="hero-intro">
+      <h1>Vector Data and Analysis</h1>
+      <p>This project page showcases an exploration of spatial accessibility and urban geography in Utrecht, Netherlands. It covers the isochrones surrounding local schools to evaluate how far schools are from residencies, alongside an evaluation of gendered perceptions across the city using Volunteered Geographic Information (VGI).</p>
+      
+      <div class="meta-bubbles-container">
+        <span class="meta-bubble">Vector Analysis</span>
+        <span class="meta-bubble">Isochrones</span>
+        <span class="meta-bubble">VGI Densities</span>
+        <span class="meta-bubble">Utrecht</span>
+      </div>
+    </div>
+
+
+    <div class="bubble-card">
+      <h2>Project Overview</h2>
+      <p>This project is split into two main parts.</p>
+      <p><strong>Part 1 — School Accessibility:</strong> The core objective was to create an isochrone map a map that depicts an area accessible from a point within a certain time threshold - aiming to show how close residencies such as houses and apartments are to schools in Utrecht. The spatial question that I attempted to answer was how many houses and apartments are within a 20 minute walking transit time from schools.</p>
+      <p><strong>Part 2 — Perceived Pleasantness (VGI):</strong> In this part, I was able to generate a density map answering the spatial question: Where in Utrecht is the most pleasant according to men versus women? I used the data that was collected in class using Volunteered Geographic Information and downloaded the data points into QGIS.</p>
+    </div>
+
+
+    <div class="bubble-card">
+      <h2>Background on Methods</h2>
+      <p>Some of the methods that can be used while analysing vector data are the following:</p>
+      <ul>
+        <li><strong>Kernels & Density Estimation:</strong> Kernels are window functions for each observation, or data point, that determine the part of the data point that is used for density estimation; its weight. Density estimation is the construction of a density function from the observed data.</li>
+        <li><strong>Aerial Interpolation:</strong> Next, aerial interpolation is the process of using data from source zones with known values to target zones with unknown values.</li>
+        <li><strong>Classification & Clusters:</strong> Classification is when categories are applied to data, and clusters is when categories are extracted from data.</li>
+        <li><strong>Point Pattern Analysis:</strong> Point pattern analysis is the process of studying the spatial distribution of points on a map which can be done by analysing single points or the relationships between points.</li>
+      </ul>
+    </div>
+
+
+    <div class="bubble-card">
+      <img src="isochrone.png.png" alt="Walking Distances from residencies to Schools in Utrecht">
+      <p>This map visualizes the walking accessibility around schools in Utrecht, using an isochrone layer created in QGIS. Schools are represented as green points and the residences as pink points.</p>
+      <p>The isochrones are generated from each school location at different walking time thresholds, meaning that they show how much time it would take to walk away from the schools in all directions. The darkest shade of green shows a 5 minute diameter away from the school, the slightly lighter green polygon has a diameter of 10 minute walking distance and the lightest green is of a 20 minute walking distance diameter.</p>
+      <p>By overlaying the residencies on the map, we can see that most homes fall within a short walking distance from schools. In the most urban area of Utrecht, the isochrone layers overlap, illustrating that residences in the center of Utrecht should have no problem walking to schools. A few rural residencies do not fall within a 20 minute walking time threshold from schools, indicating potential accessibility gaps.</p>
+      <p>One limit to this map is that there are very few houses and apartments shown, this is most probably due to a lack of data, seeing as there are surely more residencies in Utrecht than those depicted by the pink points.</p>
+    </div>
+
+
+    <div class="bubble-card">
+      <img src="isochrone_colored.png" alt="counted isochrone">
+      <p>In this second version of the map I added a function which counts the number of residencies in each isochrone layer. This is useful because it tells us how many residencies are within walking distances from the schools. The darker blue illustrates a higher density of residencies within walking distances from schools and the lighter blue depicts less residencies within the schools' isochrone layers. I chose the blue gradient because this is a neutral color to depict a count.</p>
+      <p>The title that I put on this map is "Number of Schools in Utrecht", while it does illustrate the higher density of schools in the center of the city, a more fitting title would be "Number of Residencies within Walking Distances from Schools in Utrecht." Similarly, the title of the legend "Number of schools" should be "Number of Residencies."</p>
+    
+      
+      <div class="inner-methods-box">
+        <h3>Methodology</h3>
+        <p>Data source: OpenStreet Map - an open source which provides data on interferences such as buildings and roads all over the world.</p>
+        <p>Topology is the spatial relationship between geographic features.</p>
+        <ul>
+          <li>To create the isochrone layers around the schools I used Open Route Service and the ORS tools plug-in in QGIS.</li>
+          <li>Next, I used the "count points within polygon" tool to count the number of residencies within each isochrone layer.</li>
+        </ul>
+        <p>I used these methods because they allow me to visualize the schools accessibility based on travel times and to measure the number of residences with nearby access to schools. This type of spatial analysis is interesting for urban planners to assess the equal distribution of school infrastructure relative to where families live.</p>
+      </div>
+    </div>
+
+
+    <div class="bubble-card">
+      <h2>Perceived Pleasantness Analysis (VGI Data)</h2>
+      <p style="margin-bottom: 2rem;">An analysis of Volunteered Geographic Information data points experimented with inside QGIS to study community perceptions.</p>
+	   <p style="margin-bottom: 2rem;">Volunteered geographic information (VGI) is the harnessing of tools to create geographic data provided voluntarily by individuals. </p>
+
+      <div class="map-subsection">
+        <h3>Figure 1: Density of the Data Points in Utrecht</h3>
+        <img src="VGI.png" alt="Figure 1 Density Layer">
+        <p>In this first figure, I separated the data points based on the gender of the people that entered the data into VGI. The blue points show data points entered by men and the red points show data entered by women. I then created a grid which is shown in light grey which allowed me to use the "count points within polygons" function to count the number of points within each grid square. Next, I used a blue color gradient to show where there are the most data points. (These seem to have only registered the men's points despite the fact that I entered all the data points in the count function.)</p>
+      </div>
+
+      <div class="map-subsection">
+        <h3>Figure 2: Most Pleasant Areas in Utrecht</h3>
+          <img src="VGI1.png" alt="Figure 2 VGI Layer 1">
+          <img src="VGI2.png" alt="Figure 2 VGI Layer 2">
+        <p>Here, I added a layer showing the data points where the pleasantness was rated 5 out of 5 stars, these points are shown in pink on this map. The top figure shoes the pink points as well as the men’s points and the bottom figure shoes the pink points and the women’s points. Using this information, we know that 12 data points with pleasantness rated at 5 were entered by women versus only 10 points for men. Despite the fact that the men entered more data points than the women, they have less points with high pleasantess. This gives us an attempted answer to the spatial question on perceived pleasantness, as it seems that women perceived things as more pleasant than men in Utrecht.</p>
+      </div>
+
+      <div class="inner-methods-box" style="margin-bottom:0;">
+        <h3>VGI Insights</h3>
+        <p>One thing I learned about the data collection process is how useful volunteer geographic information can be as it is an efficient method to collect data fast. Something I might do differently is distribute groups more equally by gender, especially if this is a variable that I will attempt to analyse afterwards.</p>
+      </div>
+      
+    </div>
+
+  </div>
+
+  <footer>
+    <div class="container" style="padding:0;">
+      © 2026 GIS Student Portfolio | Victoire Coronas
+    </div>
+  </footer>
+
+</body>
+</html>

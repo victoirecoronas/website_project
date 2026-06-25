@@ -1,0 +1,668 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <title>GIS Portfolio Victoire Coronas </title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+
+    :root{
+      --bg:#f5f7fa;
+      --surface:#ffffff;
+      --text:#1f2937;
+      --muted:#6b7280;
+      --accent:#2563eb;
+      --accent-light:#dbeafe;
+      --border:#e5e7eb;
+      --shadow:0 10px 28px rgba(0,0,0,0.06);
+      --radius:20px;
+      --max-width:1240px;
+    }
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
+
+    html{
+      scroll-behavior:smooth;
+    }
+
+    body{
+      font-family:'Inter',sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      line-height:1.7;
+    }
+
+    img{
+      max-width:100%;
+      display:block;
+    }
+
+    a{
+      text-decoration:none;
+      color:var(--accent);
+    }
+
+    .container{
+      width:min(92%, var(--max-width));
+      margin:auto;
+    }
+
+    /* ======================
+        NAVIGATION
+    ======================= */
+
+    header{
+      position:sticky;
+      top:0;
+      z-index:1000;
+      background:rgba(255,255,255,0.9);
+      backdrop-filter:blur(10px);
+      border-bottom:1px solid var(--border);
+    }
+
+    nav{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:1rem 0;
+    }
+
+    .logo{
+      font-weight:700;
+      font-size:1.1rem;
+      letter-spacing:0.02em;
+    }
+
+    .nav-links{
+      display:flex;
+      gap:1.5rem;
+      flex-wrap:wrap;
+    }
+
+    .nav-links a{
+      color:var(--muted);
+      font-size:0.95rem;
+      transition:0.2s ease;
+    }
+
+    .nav-links a:hover{
+      color:var(--accent);
+    }
+
+    /* ======================
+        HERO
+    ======================= */
+
+    .hero{
+      padding:7rem 0 5rem;
+    }
+
+    .hero-grid{
+      display:grid;
+      grid-template-columns:1.2fr 0.8fr;
+      gap:3rem;
+      align-items:center;
+    }
+
+    .hero h1{
+      font-family:'Merriweather',serif;
+      font-size:clamp(2.5rem,6vw,5rem);
+      line-height:1.1;
+      margin-bottom:1.3rem;
+    }
+
+    .hero p{
+      color:var(--muted);
+      max-width:700px;
+      font-size:1.1rem;
+    }
+
+    .hero-card{
+      background:var(--surface);
+      border-radius:var(--radius);
+      padding:2rem;
+      box-shadow:var(--shadow);
+      border:1px solid var(--border);
+    }
+
+    .hero-card h3{
+      margin-bottom:1rem;
+      font-size:1.1rem;
+    }
+
+    .hero-card ul{
+      list-style:none;
+      display:grid;
+      gap:0.8rem;
+    }
+
+    .hero-card li{
+      color:var(--muted);
+      font-size:0.96rem;
+    }
+
+    .button{
+      display:inline-block;
+      margin-top:2rem;
+      padding:0.95rem 1.5rem;
+      border-radius:999px;
+      background:var(--accent);
+      color:white;
+      font-weight:600;
+      transition:0.2s ease;
+    }
+
+    .button:hover{
+      opacity:0.92;
+    }
+
+    /* ======================
+        SECTIONS
+    ======================= */
+
+    section{
+      padding:5rem 0;
+    }
+
+    .section-title{
+      margin-bottom:2.5rem;
+    }
+
+    .section-title h2{
+      font-size:2rem;
+      margin-bottom:0.8rem;
+      font-family:'Merriweather',serif;
+    }
+
+    .section-title p{
+      color:var(--muted);
+      max-width:760px;
+    }
+
+    /* ======================
+        MAP GRID (ASYMMETRIC CARD SIZE RULES)
+    ======================= */
+
+    .map-grid{
+      display:grid;
+      grid-template-columns:repeat(6, 1fr);
+      gap:2rem;
+    }
+
+    .map-card-wrapper {
+      grid-column: span 3; /* Standard size takes 3 columns */
+    }
+
+    .map-card-wrapper.wide {
+      grid-column: span 4; /* Large cards take 4 columns */
+    }
+
+    .map-card-wrapper.narrow {
+      grid-column: span 2; /* Small cards take 2 columns */
+    }
+
+    .map-card{
+      background:var(--surface);
+      border-radius:var(--radius);
+      overflow:hidden;
+      border:1px solid var(--border);
+      box-shadow:var(--shadow);
+      transition:0.25s ease;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .map-card:hover{
+      transform:translateY(-6px);
+    }
+
+    /* Fixed Image frame wrapper container to fit and fill container dimensions perfectly */
+    .map-image-frame {
+      width: 100%;
+      height: 260px;
+      overflow: hidden;
+      background: #f5f7fa;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .map-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover; /* This makes the image expand neatly to perfectly fit its unique container size */
+    }
+
+    .map-content{
+      padding:1.6rem;
+      flex-grow: 1;
+    }
+
+    .map-content h3{
+      margin-bottom:0.7rem;
+      font-size:1.15rem;
+    }
+
+    .map-content p{
+      color:var(--muted);
+      font-size:0.95rem;
+    }
+
+    /* ======================
+        SKILLS
+    ======================= */
+
+    .skills{
+      display:flex;
+      flex-wrap:wrap;
+      gap:0.8rem;
+      margin-top:1.5rem;
+    }
+
+    .skill{
+      padding:0.55rem 1rem;
+      border-radius:999px;
+      background:var(--accent-light);
+      color:var(--accent);
+      font-size:0.9rem;
+      font-weight:500;
+    }
+
+    /* ======================
+        ABOUT SECTION WITH PICTURE SPLIT
+    ======================= */
+
+    .about-split {
+      display: grid;
+      grid-template-columns: 1.3fr 0.7fr;
+      gap: 2.5rem;
+      align-items: start;
+    }
+
+    .about-box{
+      background:var(--surface);
+      padding:2rem;
+      border-radius:var(--radius);
+      border:1px solid var(--border);
+      box-shadow:var(--shadow);
+    }
+
+    .about-box p{
+      color:var(--muted);
+    }
+
+    /* Picture of Me Box Container */
+    .about-photo-box {
+      background: var(--surface);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      height: 100%;
+      min-height: 250px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .about-photo-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    .about-photo-box span {
+      color: var(--muted);
+      font-weight: 500;
+      font-size: 0.9rem;
+    }
+
+    /* ======================
+        CONTACT
+    ======================= */
+
+    .contact-card{
+      background:var(--surface);
+      padding:2rem;
+      border-radius:var(--radius);
+      border:1px solid var(--border);
+      box-shadow:var(--shadow);
+    }
+
+    .contact-card p{
+      margin-bottom:1rem;
+    }
+
+    /* ======================
+        FOOTER
+    ======================= */
+
+    footer{
+      padding:4rem 0;
+      text-align:center;
+      color:var(--muted);
+      font-size:0.95rem;
+    }
+
+    /* ======================
+        MOBILE
+    ======================= */
+
+    @media(max-width:900px){
+
+      .hero-grid, .about-split{
+        grid-template-columns:1fr;
+      }
+
+      .map-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .map-card-wrapper.wide, .map-card-wrapper.narrow {
+        grid-column: span 1;
+      }
+
+      nav{
+        flex-direction:column;
+        gap:1rem;
+      }
+
+      .nav-links{
+        justify-content:center;
+      }
+
+      .hero{
+        padding-top:5rem;
+      }
+
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <header>
+
+    <div class="container">
+
+      <nav>
+
+        <div class="logo">
+          GIS Portfolio
+        </div>
+
+        <div class="nav-links">
+          <a href="#about">About</a>
+          <a href="#maps">Maps</a>
+          <a href="#skills">Skills</a>
+          <a href="#contact">Contact</a>
+        </div>
+
+      </nav>
+
+    </div>
+
+  </header>
+
+  <section class="hero">
+
+    <div class="container">
+
+      <div class="hero-grid">
+
+        <div>
+
+          <h1>
+            Victoire's GIS & Cartography Portfolio
+          </h1>
+
+          <p>
+			Welcome to my website showcasing my mapping projects and cartographic design work from my GIS course. 
+          </p>
+
+          <a href="#maps" class="button">
+            View Maps
+          </a>
+
+        </div>
+
+        <div class="hero-card">
+
+          <h3>Portfolio Highlights</h3>
+
+          <ul>
+            <li>• Chloropleth maps</li>
+            <li>• Vector data and anaysis</li>
+            <li>• Raster elevation models</li>
+            <li>• Vegetation indices</li>
+            <li>• Land use classification</li>
+            <li>• Multicriteria analysis</li>
+          </ul>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <section id="about">
+
+    <div class="container">
+
+      <div class="section-title">
+        <h2>About Me</h2>
+      </div>
+
+      <div class="about-split">
+        <div class="about-box">
+          <p>
+           My name is Victoire Coronas and I am French student at University College Utrecht in the Netherlands (2028). My major is in cognitive neuroscience and physiology and I am interested in cartography. My work on this website was done in the context of a Geographic Informations Systems course at UCU and focuses on different mapping projects to practice my cartographic design work. 
+          </p>
+        </div>
+
+  
+          <img src="IMG_0038.jpg" alt="Victoire Coronas Profile" onerror="this.style.display='none';">
+      </div>
+
+    </div>
+
+  </section>
+
+  <section id="maps">
+
+    <div class="container">
+
+      <div class="section-title">
+
+        <h2>Map Portfolio</h2>
+
+      </div>
+
+      <div class="map-grid">
+
+        <div class="map-card-wrapper narrow">
+          <a href="studentProjectPage.html" style="text-decoration:none;color:inherit;">
+            <div class="map-card">
+              <div class="map-image-frame">
+                <img src="map.png.png" alt="">
+              </div>
+              <div class="map-content">
+                <h3>Chloropleth map in QGIS</h3>
+                <p>
+                  This chloropleth map illustrates the proportion of seats held by women in national parliaments across countries using data from the UN from 2025.
+                </p>
+              </div>
+            </div>
+          </a>
+        </div>
+
+        <div class="map-card-wrapper wide">
+          <a href="projectpage2.html" style="text-decoration:none;color:inherit;">
+            <div class="map-card">
+              <div class="map-image-frame">
+                <img src="isochrone.png.png" alt="">
+              </div>
+              <div class="map-content">
+                <h3>Vector data and analysis</h3>
+                <p>
+                  On this page you will find a spatial analysis of the walking accesibility from residencies to schoold in Utrecht, Netherlands using isochrone layers in QGIS. You will also find a density map using volunteered geographic information (VGI) exploring perceived plesantness by gender in Utrecht.
+                </p>
+              </div>
+            </div>
+          </a>
+        </div>
+
+        <div class="map-card-wrapper">
+          <a href="projectpage3.html" style="text-decoration:none;color:inherit;">
+            <div class="map-card">
+              <div class="map-image-frame">
+                <img src="formatted DTM.png" alt="">
+              </div>
+              <div class="map-content">
+                <h3>Raster Elevation Models</h3>
+                <p>
+                  This map shows the elevation of the Kleine Dommel river terrain in the Netherlands. On this project's page you can also find a map showing the elevation including the surface levels (such as trees and buildings), as well as a map comparing this terrain to an old map of the same area in 1897.
+                </p>
+              </div>
+            </div>
+          </a>
+        </div>
+
+        <div class="map-card-wrapper">
+          <a href="projectpage4.html" style="text-decoration:none;color:inherit;">
+            <div class="map-card">
+              <div class="map-image-frame">
+                <img src="True color 2018.png" alt="">
+              </div>
+              <div class="map-content">
+                <h3>Vegetation Indices</h3>
+                <p>
+                  This project maps the true color composites of the Greater Rio de Janeiro region in 2018 and in 2025 using the data from the Sentinel-2 satellite. Using this data, we also compared the vegetation indexes of the same area in 2018 and 2025 allowing us to see to what extent deforrestation or urbanization affected this area in the past 7 years.
+                </p>
+              </div>
+            </div>
+          </a>
+        </div>
+
+        <div class="map-card-wrapper wide">
+          <a href="projectpage5.html" style="text-decoration:none;color:inherit;">
+            <div class="map-card">
+              <div class="map-image-frame">
+                <img src="Utrecht_false color composite.png" alt="">
+              </div>
+              <div class="map-content">
+                <h3>Land Cover Classification</h3>
+                <p>
+                  On this page you will find maps of Utrecht, Netherlands displaying land cover classifications in several different ways. 
+                </p>
+              </div>
+            </div>
+          </a>
+        </div>
+
+        <div class="map-card-wrapper narrow">
+          <a href="projectpage6.html" style="text-decoration:none;color:inherit;">
+            <div class="map-card">
+              <div class="map-image-frame">
+                <img src="graphic.png" alt="">
+              </div>
+              <div class="map-content">
+                <h3>Multi-criteria Analysis</h3>
+                <p>
+                  Here, you will find an explenation of what a multi-criteria analysis is as well as an example of the kind of project one can make using this technique.
+                </p>
+              </div>
+            </div>
+          </a>
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <section id="skills">
+
+    <div class="container">
+
+      <div class="section-title">
+
+        <h2>Technical Skills</h2>
+
+      </div>
+
+      <div class="about-box">
+
+        <div class="skills">
+
+          <div class="skill">QGIS</div>
+          <div class="skill">ArcGIS Pro</div>
+          <div class="skill">Google Earth Engine</div>
+          <div class="skill">Remote Sensing</div>
+          <div class="skill">Spatial Analysis</div>
+          <div class="skill">Cartography</div>
+          <div class="skill">JavaScript</div>
+          <div class="skill">GeoJSON</div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <section id="contact">
+
+    <div class="container">
+
+      <div class="section-title">
+
+        <h2>Contact</h2>
+
+      </div>
+
+      <div class="contact-card">
+
+        <p><strong>Name:</strong> Victoire Coronas</p>
+
+        <p><strong>Email:</strong> v.h.m.p.coronas@students.uu.nl</p>
+
+        <p><strong>University:</strong> University College Utrecht </p>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <footer>
+
+    <div class="container">
+
+      © 2026 GIS Student Portfolio
+
+    </div>
+
+  </footer>
+
+</body>
+</html>

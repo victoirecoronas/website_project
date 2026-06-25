@@ -1,0 +1,451 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <title>UN SDG Goal 5: Female Representation in National Parliaments</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#f5f7fa;
+      --surface:#ffffff;
+      --text:#1f2937;
+      --muted:#6b7280;
+      --accent:#0e623a; /* Changed to green to match the map theme */
+      --accent-light:#e6f4ea; 
+      --border:#e5e7eb;
+      --shadow:0 10px 28px rgba(0,0,0,0.06);
+      --radius:20px;
+      --max-width:1150px;
+    }
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
+
+    html{
+      scroll-behavior:smooth;
+    }
+
+    body{
+      font-family:'Inter',sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      line-height:1.8;
+    }
+
+    img{
+      max-width:100%;
+      display:block;
+      border-radius:12px;
+    }
+
+    a{
+      text-decoration:none;
+      color:var(--accent);
+    }
+
+    .container{
+      width:min(92%, var(--max-width));
+      margin:auto;
+    }
+
+    /* =========================
+       HEADER
+    ========================== */
+    header{
+      position:sticky;
+      top:0;
+      z-index:1000;
+      background:rgba(255,255,255,0.92);
+      backdrop-filter:blur(10px);
+      border-bottom:1px solid var(--border);
+    }
+
+    nav{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:1rem 0;
+    }
+
+    .logo{
+      font-weight:700;
+      font-size:1.05rem;
+    }
+
+    .back-link{
+      color:var(--muted);
+      transition:0.2s ease;
+    }
+
+    .back-link:hover{
+      color:var(--accent);
+    }
+
+    /* =========================
+       HERO
+    ========================== */
+    .hero{
+      padding:6rem 0 4rem;
+    }
+
+    .hero h1{
+      font-family:'Merriweather',serif;
+      font-size:clamp(2.4rem,6vw,4.2rem);
+      line-height:1.15;
+      margin-bottom:1.3rem;
+    }
+
+    .hero p{
+      color:var(--muted);
+      max-width:800px;
+      font-size:1.1rem;
+    }
+
+    .hero-meta{
+      margin-top:2rem;
+      display:flex;
+      flex-wrap:wrap;
+      gap:1rem;
+    }
+
+    .meta-item{
+      background:var(--accent-light);
+      color:var(--accent);
+      padding:0.6rem 1rem;
+      border-radius:999px;
+      font-size:0.92rem;
+      font-weight:500;
+    }
+
+    /* =========================
+       FEATURE IMAGE
+    ========================== */
+    .feature-image{
+      background:var(--surface);
+      border-radius:var(--radius);
+      border:1px solid var(--border);
+      padding:1rem;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      margin-bottom:5rem;
+      box-shadow:var(--shadow);
+    }
+
+    /* =========================
+       INTERACTIVE MAP CARD
+    ========================== */
+    .interactive-map-card {
+      background: var(--surface);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      padding: 2.5rem;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card-badge {
+      display: inline-block;
+      background: var(--accent-light);
+      color: var(--accent);
+      padding: 0.3rem 0.8rem;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 1rem;
+    }
+
+    .interactive-map-card h2 {
+      font-family: 'Merriweather', serif;
+      margin-bottom: 0.5rem;
+      font-size: 1.8rem;
+    }
+
+    .iframe-container {
+      position: relative;
+      width: 100%;
+      height: 850px; /* Highly expanded showcase size */
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: #f8fafc;
+    }
+
+    .iframe-container iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    /* =========================
+       CONTENT
+    ========================== */
+    section{
+      padding-bottom:4rem;
+    }
+
+    .content-grid{
+      display:grid;
+      grid-template-columns:2fr 1fr;
+      gap:3rem;
+      align-items:start;
+    }
+
+    .content-card{
+      background:var(--surface);
+      border-radius:var(--radius);
+      padding:2.2rem;
+      border:1px solid var(--border);
+      box-shadow:var(--shadow);
+      margin-bottom:2rem;
+    }
+
+    .content-card h2{
+      font-family:'Merriweather',serif;
+      margin-bottom:1rem;
+      font-size:1.6rem;
+    }
+
+    .content-card p{
+      color:var(--muted);
+      margin-bottom:1.2rem;
+    }
+
+    .content-card ul{
+      padding-left:1.2rem;
+      color:var(--muted);
+      margin-bottom:1.2rem;
+    }
+
+    .content-card li{
+      margin-bottom:0.5rem;
+    }
+
+    /* =========================
+       SIDEBAR
+    ========================== */
+    .sidebar-card{
+      background:var(--surface);
+      border-radius:var(--radius);
+      padding:2rem;
+      border:1px solid var(--border);
+      box-shadow:var(--shadow);
+      margin-bottom:2rem;
+    }
+
+    .sidebar-card h3{
+      margin-bottom:1rem;
+      font-size:1.1rem;
+    }
+
+    .sidebar-card p{
+      color:var(--muted);
+      margin-bottom:0.7rem;
+      font-size:0.95rem;
+    }
+
+    /* =========================
+       BUTTON
+    ========================== */
+    .button{
+      display:inline-block;
+      margin-top:1rem;
+      padding:0.95rem 1.4rem;
+      border-radius:999px;
+      background:var(--accent);
+      color:white;
+      font-weight:600;
+      transition:0.2s ease;
+      text-align:center;
+      width:100%;
+    }
+
+    .button:hover{
+      opacity:0.92;
+    }
+
+    /* =========================
+       FOOTER
+    ========================== */
+    footer{
+      padding:4rem 0;
+      text-align:center;
+      color:var(--muted);
+      font-size:0.95rem;
+    }
+
+    /* =========================
+       MOBILE
+    ========================== */
+    @media(max-width:900px){
+      .content-grid{
+        grid-template-columns:1fr;
+      }
+      nav{
+        flex-direction:column;
+        gap:1rem;
+      }
+    }
+
+    @media(max-width:600px){
+      .interactive-map-card {
+        padding:1.2rem;
+      }
+      .iframe-container {
+        height:450px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <div class="container">
+      <nav>
+        <div class="logo">
+          GIS Student Portfolio
+        </div>
+        <a href="Student_website_template.html" class="back-link">
+          ← Back to Portfolio
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container">
+      <h1>
+        Choropleth Map in QGIS
+      </h1>
+      <p>
+        This projects showcases a choropleth map illustrating the proportion of seats held by women in national parliaments across countries using 2025 data and made with QGIS.
+      </p>
+
+      <div class="hero-meta">
+        <div class="meta-item">QGIS</div>
+        <div class="meta-item">Choropleth Mapping</div>
+        <div class="meta-item">UN SDG Goal 5</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="container">
+    <div class="feature-image">
+      <img src="map.png.png" alt="Choropleth Map of Proportion of seats held by Women in National Parliaments, 2025">
+    </div>
+  </div>
+
+  <div class="container" style="margin-bottom: 5rem;">
+    <div class="interactive-map-card">
+      <h2>Interactive map</h2>
+      <p style="color: var(--muted); margin-bottom: 1.5rem; font-size: 0.95rem;">
+        Hover over countries to view live, dynamic percentages of female representation in national parliaments!
+      </p>
+      <div class="iframe-container">
+        <iframe src="map.html" title="Interactive SDG 5.5 Map" loading="lazy"></iframe>
+      </div>
+    </div>
+  </div>
+
+  <section>
+    <div class="container">
+      <div class="content-grid">
+
+        <div>
+
+          <div class="content-card">
+            <h2>United Nations SDGs</h2>
+            <p>
+              This project maps global progress toward the United Nations Sustainable Development Goals, focusing on <strong>Goal 5: Achieve Gender Equality and Empower All Women and Girls</strong>.
+            </p>
+            <p>
+              The focus is directed toward <strong>Target 5.5</strong>: <em>"Ensure women's full and effective participation and equal opportunities for leadership at all levels of decision-making."</em> This progress is measured using <strong>SDG Indicator 5.5.1</strong>, which measures the proportion of seats held by women in national parliaments.
+            </p>
+          </div>
+
+          <div class="content-card">
+            <h2>Cartographic Design</h2>
+            <p>
+              Using the data from the United Nations, this choropleth map was built to make patterns identifiable at a quick glance. The key visualization choices I made include:
+            </p>
+            <ul>
+              <li><strong>Color Palette:</strong> The map uses shades of green because it is a color with positive connotations to represent higher female representation as a positive.</li>
+              <li><strong>Value Steps:</strong> Lighter greens illustrate fewer parliamentary seats occupied by women, while increasingly darker shades represent higher proportions.</li>
+              <li><strong>Top Performers:</strong> Countries achieving 50% or more female representation are distinguished by a bold outline and explicit text labels showing their percentage data.</li>
+            </ul>
+            <p>
+              The four highest-performing nations highlighted include <strong>Rwanda (61.3%)</strong>, <strong>Nicaragua (54.95%)</strong>, <strong>Cuba (53.2%)</strong>, <strong>Mexico (50.2%)</strong>, and the <strong>United Arab Emirates (50.0%)</strong>.
+            </p>
+          </div>
+
+          <div class="content-card">
+            <h2>Reflection & Critique</h2>
+            <p>
+              Choropleth maps are highly effective for visualizing standard percentages and global spatial ratios. 
+            </p>
+            <p>
+              However, a major constraint of this type of map is that a single color usually represents an entire country, masking regional or local variabilities. Furthermore, this dataset features a notable amount of missing data (represented in grey). These information gaps make it challenging to draw complete global comparisons.
+            </p>
+          </div>
+
+          <div class="content-card">
+            <h2>Technical Skills Gained</h2>
+            <ul>
+              <li><strong>Creation of maps on QGIS:</strong> I learned how to extract raw datasets and map them effectively. This also highlighted how design choices change what story a map emphasizes and the narrative it choses.</li>
+              <li><strong>Website Development:</strong> I gained foundational skills in producing a webiste to display the interative map publicly.</li>
+            </ul>
+          </div>
+
+        </div>
+
+        <div>
+
+          <div class="sidebar-card">
+            <h3>Project Details</h3>
+            <p><strong>Student:</strong> Victoire Coronas</p>
+            <p><strong>Course:</strong> Introduction to Geographic Information Systems</p>
+            <p><strong>Date:</strong> June 2026</p>
+            <p><strong>Dataset Year:</strong> 2025</p>
+          </div>
+
+          <div class="sidebar-card">
+            <h3>Tools</h3>
+            <p>QGIS</p>
+          </div>
+
+          <div class="sidebar-card">
+            <h3>Data</h3>
+            <p>Review the comprehensive official metadata frameworks used by the United Nations Statistics Division.</p>
+            <a href="https://geoportal.un.org/arcgis/apps/sites/#/geohub/datasets/33e5c17e2de94a75ae7fdb9395cd277f/about" target="_blank" class="button">
+              View UN SDG Metadata
+            </a>
+          </div>
+		  
+    </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      © 2026 GIS Student Portfolio
+    </div>
+  </footer>
+
+</body>
+</html>

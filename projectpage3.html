@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <title>Assignment 3: Elevation Model - Kleine Dommel River</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#f5f7fa;
+      --surface:#ffffff;
+      --text:#1f2937;
+      --muted:#6b7280;
+      --accent:#0f52ba; /* Tailored to fit a river/elevation map palette */
+      --accent-light:#e0ecff;
+      --border:#e5e7eb;
+      --shadow:0 10px 28px rgba(0,0,0,0.06);
+      --radius:20px;
+      --max-width:1150px;
+    }
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
+
+    html{
+      scroll-behavior:smooth;
+    }
+
+    body{
+      font-family:'Inter',sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      line-height:1.8;
+    }
+
+    img{
+      max-width:100%;
+      display:block;
+      border-radius:12px;
+      margin: 1.5rem auto;
+    }
+
+    a{
+      text-decoration:none;
+      color:var(--accent);
+    }
+
+    .container{
+      width:min(92%, var(--max-width));
+      margin:auto;
+    }
+
+    /* =========================
+       HEADER
+    ========================== */
+    header{
+      position:sticky;
+      top:0;
+      z-index:1000;
+      background:rgba(255,255,255,0.92);
+      backdrop-filter:blur(10px);
+      border-bottom:1px solid var(--border);
+    }
+
+    nav{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:1rem 0;
+    }
+
+    .logo{
+      font-weight:700;
+      font-size:1.05rem;
+    }
+
+    .back-link{
+      color:var(--muted);
+      transition:0.2s ease;
+    }
+
+    .back-link:hover{
+      color:var(--accent);
+    }
+
+    /* =========================
+       HERO
+    ========================== */
+    .hero{
+      padding:5rem 0 3rem;
+    }
+
+    .hero h1{
+      font-family:'Merriweather',serif;
+      font-size:clamp(2.4rem,6vw,4.5rem);
+      line-height:1.15;
+      margin-bottom:1.3rem;
+    }
+
+    .hero p{
+      color:var(--muted);
+      max-width:800px;
+      font-size:1.1rem;
+    }
+
+    .hero-meta{
+      margin-top:2rem;
+      display:flex;
+      flex-wrap:wrap;
+      gap:1rem;
+    }
+
+    .meta-item{
+      background:var(--accent-light);
+      color:var(--accent);
+      padding:0.6rem 1rem;
+      border-radius:999px;
+      font-size:0.92rem;
+      font-weight:500;
+    }
+
+    /* =========================
+       CONTENT LAYOUT
+    ========================== */
+    section{
+      padding-bottom:4rem;
+    }
+
+    .content-grid{
+      display:grid;
+      grid-template-columns:2fr 1fr;
+      gap:3rem;
+      align-items:start;
+    }
+
+    /* THE BIG STANDALONE BUBBLES */
+    .bubble-card{
+      background:var(--surface);
+      border-radius:var(--radius);
+      padding:2.5rem;
+      border:1px solid var(--border);
+      box-shadow:var(--shadow);
+      margin-bottom:2.5rem;
+    }
+
+    .bubble-card h2{
+      font-family:'Merriweather',serif;
+      margin-bottom:1.2rem;
+      font-size:1.7rem;
+      color: var(--text);
+    }
+
+    .bubble-card p{
+      color:var(--text);
+      margin-bottom:1.2rem;
+    }
+
+    .bubble-card p:last-child {
+      margin-bottom: 0;
+    }
+
+    .bubble-card ul{
+      padding-left:1.5rem;
+      margin-bottom:1.2rem;
+    }
+
+    .bubble-card li{
+      margin-bottom:0.4rem;
+    }
+
+    .inner-notes-box {
+      background: #f8fafc;
+      border-left: 4px solid var(--accent);
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin-top: 1.5rem;
+    }
+
+    .inner-notes-box h3 {
+      font-size: 1.1rem;
+      margin-top: 0;
+      margin-bottom: 0.5rem;
+      color: var(--text);
+    }
+
+    /* =========================
+       SIDEBAR
+    ========================== */
+    .sidebar-card{
+      background:var(--surface);
+      border-radius:var(--radius);
+      padding:2rem;
+      border:1px solid var(--border);
+      box-shadow:var(--shadow);
+      margin-bottom:2rem;
+    }
+
+    .sidebar-card h3{
+      margin-bottom:1rem;
+      font-size:1.1rem;
+    }
+
+    .sidebar-card p{
+      color:var(--muted);
+      margin-bottom:0.7rem;
+      font-size:0.95rem;
+    }
+
+    /* =========================
+       BUTTON
+    ========================== */
+    .button{
+      display:inline-block;
+      margin-top:1rem;
+      padding:0.95rem 1.4rem;
+      border-radius:999px;
+      background:var(--accent);
+      color:white;
+      font-weight:600;
+      transition:0.2s ease;
+    }
+
+    .button:hover{
+      opacity:0.92;
+    }
+
+    /* =========================
+       FOOTER
+    ========================== */
+    footer{
+      padding:4rem 0;
+      text-align:center;
+      color:var(--muted);
+      font-size:0.95rem;
+    }
+
+    /* =========================
+       RESPONSIVE MOBILE DESIGN
+    ========================== */
+    @media(max-width:900px){
+      .content-grid{
+        grid-template-columns:1fr;
+      }
+      nav{
+        flex-direction:column;
+        gap:1rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <div class="container">
+      <nav>
+        <div class="logo">
+          GIS Student Portfolio
+        </div>
+        <a href="Student_website_template.html" class="back-link">
+          ← Back to Portfolio
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container">
+      <h1>
+        Elevation Model & Historical Comparison
+      </h1>
+      <p>
+        An analysis showing the elevation of the Kleine Dommel river and comparing historical military cartography from 1897 against modern datasets to track changes in a natural river environment over a century.
+      </p>
+
+      <div class="hero-meta">
+        <div class="meta-item">GIS Analysis</div>
+        <div class="meta-item">DTM</div>
+        <div class="meta-item">DSM</div>
+        <div class="meta-item">Old maps</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="container">
+    <div class="content-grid">
+
+      <div>
+
+        <div class="bubble-card">
+          <h2>Digital Terrain Model (DTM)</h2>
+          
+          <img src="formatted DTM.png" alt="Map of Elevation at Kleine Dommel river - DTM Layer">
+          
+          <p>
+           For this project I selected a segment of the Dommel river branch called the Kleine Dommel, situated North-East of Eindhoven, Netherlands. I chose this area because it is outside of urban environments and therefore less monitored, providing an opportunity to track landscape evolution without heavy human interferences. Furthermore, it shows hints of elevation and has some distinct features, like water towers, that make it easy to locate on a map.
+		</p>
+
+          <p>
+            I downloaded the <strong>Digital Terrain Model (DTM)</strong> to isolate the bare ground surface elevation, stripping away infrastructures and vegetation covers. To represent the river layout, I applied the <em>Mako</em> color gradient, yeilding neutral blue and deep grey tones.
+          </p>
+          <p>
+            To enhance depth clarity and structural texture, I duplicated the DTM raster layer within QGIS, converted the copy into a <strong>Hillshade</strong> render type, and blended the layers using a <em>Soft Light</em> blending mode.
+          </p>
+        </div>
+
+
+        <div class="bubble-card">
+          <h2>Digital Surface Model (DSM)</h2>
+          
+          <img src="DSM.png" alt="Map of Vegetation and Structures - DSM Layer">
+          
+          <p>
+           This next map displays the Digital Surface Model (DSM) which, unlike the DTM layer, registers vegetation and infrastructures. 
+          </p>
+          <p>
+           I chose a green color gradient to signify the vegetated land neutrally. Just like the DTM map, I layered a duplicated Hillshade effect with a Soft Light blending mode to give the tall canopies and woodlands 3D volume.
+          </p>
+          <p>
+            Compared to the DTM map, it is more difficult to see the elevation of the land because the trees are a darker shade of green and make it less evident that the elevation is lower near the river. 
+          </p>
+        </div>
+
+
+        <div class="bubble-card">
+          <h2>Historical Military Map Comparison</h2>
+          
+          <img src="DSM_with_old_map.png" alt="1897 Military Map Georeferenced Overlay">
+          
+          
+          <p>
+            To analyse the changes of this landscape in the last century, I imported an old map into QGIS from the OldMapsOnline database, using the georeferencing tool to align the old map with the modern data. I made the old map partly transparent to allow both maps to be viewed simultaneously. 
+          </p>
+          <p>
+            <strong>Observations:</strong> 
+           From this comparison, we notice that although the river does have a very similar shape, it has moved significantly since 1897. Some of the curvatures have moved and the water tanks south of the forest are a modern addition, absent from the 1897 map. However, the forest just south of the river has stayed surprisingly similar over time. 
+          </p>
+
+          
+        </div>
+<div class="inner-notes-box">
+            <h3>Limitations</h3>
+            <p>
+              The measured altitude bounds (12m–17m) likely present an error as the Netherlands doesnotnormally reach the 15-meter threshold.
+            </p>
+          </div>
+      </div>
+
+
+      <div>
+
+        <div class="sidebar-card">
+          <h3>Project Details</h3>
+          <p><strong>Student:</strong> Victoire Coronas</p>
+          <p><strong>Course:</strong> Geographic Informations Systems </p>
+          <p><strong>Date:</strong> June 2026</p>
+          <p><strong>Study Area:</strong> Klein Dommel River</p>
+          <p><strong>Total Map Extent:</strong> 1,505,363.037 m²</p>
+        </div>
+
+        <div class="sidebar-card">
+          <h3>Software & Tools</h3>
+          <p>• QGIS</p>
+          <p>• OpenStreetMap Base Map Layer</p>
+          <p>• OldMapsOnline Archive Database</p>
+        </div>
+
+        <div class="sidebar-card">
+          <h3>Old Map Information</h3>
+          <p><strong>Title:</strong> Map for the manœuvres of the 3rd infantry division (in 2 sheets)</p>
+          <p><strong>Year:</strong> 1897</p>
+          <p><strong>Scale:</strong> 1:50,000</p>
+          <p><strong>Publisher:</strong> Topographic Service (Dutch Military Cartographic Body)</p>
+          
+          <a href="https://www.oldmapsonline.org" target="_blank" class="button">
+            View Map Archive Page ↗
+          </a>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <footer>
+    <div class="container">
+      © 2026 GIS Student Portfolio | Victoire Coronas
+    </div>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,137 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font-sans)}
+.mm-wrap{padding:1.5rem 1rem;display:flex;flex-direction:column;align-items:center;gap:0}
+.center-node{background:#D85A30;color:#712B13;border-radius:12px;padding:10px 20px;font-size:14px;font-weight:500;text-align:center;max-width:220px;line-height:1.4;position:relative;z-index:2}
+.center-node .sub{font-size:11px;color:#993C1D;margin-top:3px;font-weight:400}
+.sections{display:grid;grid-template-columns:1fr 1fr;gap:12px;width:100%;margin-top:16px}
+.section{border-radius:10px;padding:12px 14px;border:0.5px solid}
+.section-title{font-size:13px;font-weight:500;margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.section-title i{font-size:15px}
+.branch{display:flex;flex-direction:column;gap:6px}
+.leaf{border-radius:6px;padding:7px 10px;font-size:12px;line-height:1.4}
+.leaf strong{font-size:12px;font-weight:500;display:block;margin-bottom:2px}
+.leaf span{font-size:11px;opacity:0.85}
+
+.s-problem{background:#FAECE7;border-color:#F0997B}
+.s-problem .section-title{color:#712B13}
+.s-problem .leaf{background:#F5C4B3;color:#712B13}
+
+.s-why{background:#EEEDFE;border-color:#AFA9EC}
+.s-why .section-title{color:#3C3489}
+.s-why .leaf{background:#CECBF6;color:#3C3489}
+
+.s-criteria{background:#FAEEDA;border-color:#EF9F27;grid-column:1/-1}
+.s-criteria .section-title{color:#633806}
+.s-criteria .leaves{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
+.s-criteria .leaf{background:#FAC775;color:#633806}
+
+.s-data{background:#E1F5EE;border-color:#5DCAA5}
+.s-data .section-title{color:#085041}
+.s-data .leaf{background:#9FE1CB;color:#085041}
+
+.s-workflow{background:#E6F1FB;border-color:#85B7EB;grid-column:1/-1}
+.s-workflow .section-title{color:#0C447C}
+.s-workflow .steps{display:flex;gap:6px;align-items:stretch}
+.s-workflow .step{background:#B5D4F4;color:#0C447C;border-radius:6px;padding:8px 10px;flex:1;font-size:11px;line-height:1.4;position:relative}
+.s-workflow .step strong{font-size:12px;font-weight:500;display:block;margin-bottom:3px}
+.step-arrow{display:flex;align-items:center;color:#378ADD;font-size:16px;padding:0 2px;align-self:center}
+
+.s-output{background:#FCEBEB;border-color:#F09595;grid-column:1/-1}
+.s-output .section-title{color:#791F1F}
+.s-output .leaf{background:#F7C1C1;color:#791F1F}
+.s-output .leaves{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+
+.weight-pill{display:inline-block;background:rgba(0,0,0,0.08);border-radius:20px;padding:1px 6px;font-size:10px;margin-top:3px;font-weight:500}
+</style>
+
+<div class="mm-wrap">
+  <div class="center-node">
+    Heatwave vulnerability in Paris
+    <div class="sub">MCA project — GIS Level 1</div>
+  </div>
+
+  <div class="sections">
+
+    <div class="section s-problem">
+      <div class="section-title"><i class="ti ti-map-pin" aria-hidden="true"></i>The problem</div>
+      <div class="branch">
+        <div class="leaf"><strong>Planning question</strong><span>Where are communities most vulnerable to heatwave mortality across Paris?</span></div>
+        <div class="leaf"><strong>Why this topic?</strong><span>Paris was not built to withstand modern temperatures — my family is currently experiencing this firsthand.</span></div>
+      </div>
+    </div>
+
+    <div class="section s-why">
+      <div class="section-title"><i class="ti ti-chart-dots" aria-hidden="true"></i>Why MCA?</div>
+      <div class="branch">
+        <div class="leaf"><strong>Multiple factors at once</strong><span>Heat vulnerability is shaped by many overlapping criteria — MCA lets us consider them all simultaneously.</span></div>
+        <div class="leaf"><strong>Weighted decision support</strong><span>Each factor can be given a different importance, reflecting the real-world evidence on heat mortality.</span></div>
+      </div>
+    </div>
+
+    <div class="section s-criteria">
+      <div class="section-title"><i class="ti ti-layers-intersect" aria-hidden="true"></i>Criteria layers</div>
+      <div class="leaves">
+        <div class="leaf">
+          <strong>Elderly population</strong>
+          <span>% aged 65+ per area</span>
+          <div class="weight-pill">High weight</div>
+        </div>
+        <div class="leaf">
+          <strong>Surface temperature</strong>
+          <span>Land surface temp per area</span>
+          <div class="weight-pill">High weight</div>
+        </div>
+        <div class="leaf">
+          <strong>Green space access</strong>
+          <span>Distance to parks</span>
+          <div class="weight-pill">Medium weight</div>
+        </div>
+        <div class="leaf">
+          <strong>Impervious surfaces</strong>
+          <span>Sealed / paved land cover</span>
+          <div class="weight-pill">Medium weight</div>
+        </div>
+        <div class="leaf">
+          <strong>Socioeconomic deprivation</strong>
+          <span>Income deprivation index</span>
+          <div class="weight-pill">High weight</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section s-data">
+      <div class="section-title"><i class="ti ti-database" aria-hidden="true"></i>Data sources</div>
+      <div class="branch">
+        <div class="leaf"><strong>OpenStreetMap</strong><span>Base map of Paris; infrastructure; distances from residences to green areas</span></div>
+        <div class="leaf"><strong>Satellite imagery</strong><span>Maps NDVI (vegetation) and land surface temperature; shows how much heat different land covers reflect</span></div>
+        <div class="leaf"><strong>INSEE census</strong><span>France's national statistics bureau — age, occupation, housing conditions, income by area</span></div>
+      </div>
+    </div>
+
+    <div class="section s-workflow">
+      <div class="section-title"><i class="ti ti-git-branch" aria-hidden="true"></i>GIS workflow</div>
+      <div class="steps">
+        <div class="step"><strong>1. Prepare datasets</strong>Reproject all layers to the same coordinate system; clip to Paris boundary</div>
+        <div class="step-arrow">›</div>
+        <div class="step"><strong>2. Reclassify criteria</strong>Rescale each layer to a 1–5 suitability score so all criteria are comparable</div>
+        <div class="step-arrow">›</div>
+        <div class="step"><strong>3. Apply weights</strong>Elderly %, income deprivation, and surface temp receive highest weights</div>
+        <div class="step-arrow">›</div>
+        <div class="step"><strong>4. Combine layers</strong>Multiply each raster by its weight; sum all into one output raster</div>
+        <div class="step-arrow">›</div>
+        <div class="step"><strong>5. Final map</strong>Create vulnerability map ranking Paris areas from low to high risk</div>
+      </div>
+    </div>
+
+    <div class="section s-output">
+      <div class="section-title"><i class="ti ti-map-2" aria-hidden="true"></i>Expected output</div>
+      <div class="leaves">
+        <div class="leaf"><strong>Vulnerability map</strong><span>Paris arrondissements ranked by combined heat vulnerability score</span></div>
+        <div class="leaf"><strong>Decision support</strong><span>Identifies priority areas for cooling centres, welfare checks, and emergency response</span></div>
+      </div>
+    </div>
+
+  </div>
+</div>
